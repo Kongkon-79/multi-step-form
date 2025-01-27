@@ -22,7 +22,7 @@ const MultiStepForm = () => {
     handleSubmit,
     reset,
     formState: { errors },
-    // trigger,
+    trigger,
   } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
@@ -32,18 +32,18 @@ const MultiStepForm = () => {
   };
 
 
-    const nextStep = () => setStep((prev) => Math.min(prev + 1, 5));
-  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
-
-
-  // const nextStep = async () => {
-  //   const isValid = await trigger(`step${step}Field` as keyof IFormInput); // Explicitly cast to keyof IFormInput
-  //   if (isValid) {
-  //     setStep((prev) => Math.min(prev + 1, 5));
-  //   }
-  // };
-
+  //   const nextStep = () => setStep((prev) => Math.min(prev + 1, 5));
   // const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
+
+
+  const nextStep = async () => {
+    const isValid = await trigger(`step${step}Field` as keyof IFormInput); // Explicitly cast to keyof IFormInput
+    if (isValid) {
+      setStep((prev) => Math.min(prev + 1, 5));
+    }
+  };
+
+  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
   return (
     <div className="w-1/3 mx-auto mt-10 p-6 border border-gray-300 rounded-lg shadow-md">
